@@ -22,7 +22,15 @@ interface FileItem {
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || "");
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+
+const corsOptions = {
+  origin: 'https://web-genie-ai-frontend.vercel.app', // IMPORTANT: Only allow your frontend
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
+
 app.use(express.json({ limit: '50mb' })); // Increased limit for file uploads
 
 
@@ -174,6 +182,8 @@ app.post("/deploy",async (req: Request, res: Response): Promise<void> => {
 });
 
 
-app.listen(process.env.PORT, () => {
-    console.log("Server is running on port 3000");
-});
+// app.listen(process.env.PORT, () => {
+//     console.log("Server is running on port 3000");
+// });
+
+export default app;
