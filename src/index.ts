@@ -10,6 +10,16 @@ import cors from "cors";
 import axios from "axios";
 import archiver from "archiver";
 
+const corsOptions = {
+  // This MUST be the exact URL of your frontend. No trailing slash.
+  origin: 'https://web-genie-ai-frontend.vercel.app', 
+  methods: ['GET', 'POST', 'OPTIONS'], // Explicitly allow OPTIONS for preflight
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow common headers
+};
+const app = express();
+app.use(cors(corsOptions));
+
+
 interface FileItem {
     path: string;
     name: string;
@@ -21,14 +31,9 @@ interface FileItem {
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || "");
 
-const app = express();
+
 // app.use(cors());
 
-const corsOptions = {
-  origin: 'https://web-genie-ai-frontend.vercel.app', // IMPORTANT: Only allow your frontend
-  optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
 
 
 app.use(express.json({ limit: '50mb' })); // Increased limit for file uploads
