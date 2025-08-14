@@ -198,17 +198,13 @@ import express from 'express';
 import cors from 'cors';
 
 const app = express();
-
-// Use CORS for all routes
-app.use(cors());
+app.use(cors()); // Allow all origins for this test
 app.use(express.json());
 
-// A simple GET route at the root to prove the server is alive
 app.get('/', (req, res) => {
-  res.status(200).send('Minimal Express server is running on Vercel!');
+  res.status(200).send('The minimal Express server IS RUNNING!');
 });
 
-// A simplified version of your POST route for testing
 app.post('/template', (req, res) => {
   res.status(200).json({ success: true, message: 'POST to /template was received' });
 });
